@@ -50,6 +50,23 @@ function render() {
 }
 
 
+function restartGame(){
+    fields = [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+    ];
+    render();
+}
+
+
+
 function handleClick(cell, index) {
     if (fields[index] === null) {
         fields[index] = currentPlayer;
