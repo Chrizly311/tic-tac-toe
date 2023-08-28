@@ -1,14 +1,16 @@
 let fields = [
 null,
-'circle',
 null,
 null,
 null,
-'cross',
+null,
+null,
 null,
 null,
 null,
 ];
+
+let currentPlayer = 'circle';
 
 
 function init() {
@@ -30,7 +32,7 @@ function render() {
                 } else if (fields[index] === 'cross') {
                     symbol = generateCrossSVG();
                 }
-                tableHtml += `<td>${symbol}</td>`;
+                tableHtml += `<td onclick="handleClick(this, ${index})">${symbol}</td>`;
             }
             tableHtml += '</tr>';
     }
@@ -47,7 +49,7 @@ function generateCircleSVG() {
 
     return `<svg width="${width}" height="${height}">
               <circle cx="35" cy="35" r="30" stroke="${color}" stroke-width="5" fill="none">
-                <animate attributeName="stroke-dasharray" from="0 188.5" to="188.5 0" dur="0.2s" fill="freeze" />
+                <animate attributeName="stroke-dasharray" from="0 188.5" to="188.5 0" dur="0.3s" fill="freeze" />
               </circle>
             </svg>`;
 }
@@ -62,16 +64,26 @@ function generateCrossSVG() {
       <svg width="${width}" height="${height}">
         <line x1="0" y1="0" x2="${width}" y2="${height}"
           stroke="${color}" stroke-width="5">
-          <animate attributeName="x2" values="0; ${width}" dur="200ms" />
-          <animate attributeName="y2" values="0; ${height}" dur="200ms" />
+          <animate attributeName="x2" values="0; ${width}" dur="250ms" />
+          <animate attributeName="y2" values="0; ${height}" dur="250ms" />
         </line>
         <line x1="${width}" y1="0" x2="0" y2="${height}"
           stroke="${color}" stroke-width="5">
-          <animate attributeName="x2" values="${width}; 0" dur="200ms" />
-          <animate attributeName="y2" values="0; ${height}" dur="200ms" />
+          <animate attributeName="x2" values="${width}; 0" dur="250ms" />
+          <animate attributeName="y2" values="0; ${height}" dur="250ms" />
         </line>
       </svg>
     `;
 
     return svgHtml;
+}
+
+
+function handleClick(cell, index) {
+    if (fields[index] === null) {
+        fields[index] = currentPlayer;
+        cell.innerHTML = currentPlayer === 'circle' ? generateCircleSVG() : generateCrossSVG();
+        cell.onclick = null;
+        currentPlayer = currentPlayer === 'circle' ? 'cross' : 'circle';
+    }
 }
