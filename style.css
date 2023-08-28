@@ -10,10 +10,11 @@ h1 {
 }
 
 #content {
-    margin-top: 200px;
+    margin-top: 300px;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 
 table {
